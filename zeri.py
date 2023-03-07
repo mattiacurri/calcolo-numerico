@@ -1,7 +1,5 @@
-from math import cos, pi
-
-def f(x: float) -> float:
-    return x - cos(x)
+from math import cos, pi, log2, ceil
+from math_funct import *
 
 def abs_stop(a, b, tol):
     return max(a, b) - min(a, b) < tol
@@ -18,6 +16,7 @@ def mix_stop(a, b, tol):
 def_error = {"abs": abs_stop, "rel": rel_stop, "mix": mix_stop}
 
 def zeros(f: float, a: float, b: float, tol: float = 1e-10, itmax: int = 1e4, option: str = "abs") -> float | int:
+    # show_plot(f)
     fa = f(a)
     fb = f(b)
     it: int = 0
@@ -31,6 +30,8 @@ def zeros(f: float, a: float, b: float, tol: float = 1e-10, itmax: int = 1e4, op
             raise KeyError("Immettere un valore corretto: abs, rel o mix")
     except KeyError:
         raise
+    if option == "abs":
+        steps_to_precision = log2((b - a)/tol) 
     while not def_error[option](a, b, tol) and it < itmax:  
         c: float = (a + b) / 2
         fc = f(c)
@@ -44,4 +45,7 @@ def zeros(f: float, a: float, b: float, tol: float = 1e-10, itmax: int = 1e4, op
         it += 1
     if (not def_error[option](a, b, tol)):
         print("Precisione non raggiunta")
+        if option == "abs":
+            print(f"Per raggiungere la precisione richiesta sono necessari {ceil(steps_to_precision)} passi")
     return c, it
+
