@@ -1,6 +1,4 @@
 from math import cos, pi
-import time
-time_sec = time.time()
 
 def f(x: float) -> float:
     return x - cos(x)
@@ -29,6 +27,3 @@ def zeros(f: float, a: float, b: float, tol: float = 1e-10, itmax: int = 1e4) ->
         print("Precisione non raggiunta")
     return c, it
 
-ms = (time.time() - time_sec) * 1000
-
-print(zeros(f, 0, pi/2), "Execution time: " + str(round(ms, 3)) + " ms")
