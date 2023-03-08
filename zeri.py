@@ -2,21 +2,33 @@ from math import cos, pi, log2, ceil
 from math_funct import *
 
 def abs_stop(a, b, tol):
+    """ Stop per l'errore assoluto """
     return max(a, b) - min(a, b) < tol
 
 def rel_stop(a, b, tol):
+    """ Stop per l'errore relativo """
     try:
         return (max(a, b) - min(a, b))/min(abs(a), abs(b)) < tol
     except ZeroDivisionError:
         raise ZeroDivisionError("Ho provato a dividere per zero, usare l'errore misto")
     
 def mix_stop(a, b, tol):
+    """ Stop per l'errore misto """
     return (max(a, b) - min(a, b))/(1 + min(abs(a), abs(b))) < tol
 
-def_error = {"abs": abs_stop, "rel": rel_stop, "mix": mix_stop}
+def_error = {"abs": abs_stop, "rel": rel_stop, "mix": mix_stop} # Dizionario delle tipologie di errore disponibili
 
 def zeros(f: float, a: float, b: float, tol: float = 1e-10, itmax: int = 1e4, option: str = "abs") -> float | int:
-    # show_plot(f)
+    """ Calcola lo zero di una funzione utilizzando il metodo delle successive bisezioni
+        Keyword arguments:
+        f - funzione di cui calcolare lo zero
+        a - primo termine dell'intervallo da considerare della funzione
+        b - secondo termine dell'intervallo da considerare della funzione
+        tol - precisione richiesta (default = 1e-10)
+        itmax - numero di iterazioni massime (default = ie4)
+        option - tipo di errore da utilizzare (default = "abs")
+    """
+    show_plot(f)
     fa = f(a)
     fb = f(b)
     it: int = 0
@@ -27,7 +39,7 @@ def zeros(f: float, a: float, b: float, tol: float = 1e-10, itmax: int = 1e4, op
         raise
     try:
         if option not in def_error:
-            raise KeyError("Immettere un valore corretto: abs, rel o mix")
+            raise KeyError(f"Immettere un valore corretto: {def_error.keys()}")
     except KeyError:
         raise
     if option == "abs":
