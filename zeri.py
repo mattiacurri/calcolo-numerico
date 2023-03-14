@@ -28,7 +28,7 @@ def zeros(f: float, a: float, b: float, tol: float = 1e-10, itmax: int = 1e4, op
         itmax - numero di iterazioni massime (default = ie4)
         option - tipo di errore da utilizzare (default = "abs")
     """
-    show_plot(f)
+    # show_plot(f)
     fa = f(a)
     fb = f(b)
     it: int = 0
@@ -61,3 +61,15 @@ def zeros(f: float, a: float, b: float, tol: float = 1e-10, itmax: int = 1e4, op
             print(f"Per raggiungere la precisione richiesta sono necessari {ceil(steps_to_precision)} passi")
     return c, it
 
+""" Metodo di Newton """
+def newton(f: float, x0: float, tol: float = 1e-10, itmax: int = 10e4):
+    it = 0
+    arresto = False
+    while not(arresto) and it < itmax:
+        it += 1
+        x1 = x0 - (f(x0)/f(x0, 1))
+        arresto = abs(x1 - x0) < tol
+        x0 = x1
+    if not arresto:
+        print("Precisione non raggiunta")
+    return x1, it
