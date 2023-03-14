@@ -4,7 +4,9 @@ Repository contenente il codice scritto per il corso di __Calcolo Numerico__ del
 Le implementazioni dei codici richiesti per il corso verranno effettuate utilizzando il linguaggio __Python__
 
 ## Contenuti
-- Metodo delle successive bisezioni
+- Zeri di funzione
+-- Metodo delle successive bisezioni
+-- Metodo di Newton (o delle tangenti)
 
 
 # Ambiente di lavoro
