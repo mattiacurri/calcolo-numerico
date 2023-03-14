@@ -5,8 +5,8 @@ Le implementazioni dei codici richiesti per il corso verranno effettuate utilizz
 
 ## Contenuti
 - Zeri di funzione
--- Metodo delle successive bisezioni
--- Metodo di Newton (o delle tangenti)
+  - Metodo delle successive bisezioni
+  - Metodo di Newton (o delle tangenti)
 
 
 # Ambiente di lavoro
