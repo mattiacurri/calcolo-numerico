@@ -1,4 +1,4 @@
-# calcolo-numerico
+# Calcolo Numerico
 Repository contenente il codice scritto per il corso di __Calcolo Numerico__ dell'A.A. 2022-2023.
 
 Le implementazioni dei codici richiesti per il corso verranno effettuate utilizzando il linguaggio __Python__
