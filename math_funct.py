@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def f(x: float) -> float:
-    return x - np.cos(x)
+def f(x: float, ord: int = 0) -> float: # ord: ordine di derivazione
+    if ord == 0: return x - np.cos(x)
+    elif ord == 1: return 1 + np.sin(x)
+    else: print("Ordine non implementato")
 
 def h(x: float) -> float:
     return x - np.e**-x
