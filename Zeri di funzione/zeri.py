@@ -1,5 +1,5 @@
-from math import cos, pi, log2, ceil
-from math_funct import *
+from math import log2, ceil
+from ..utils.math_funct import *
 
 def abs_stop(a, b, tol):
     """ Stop per l'errore assoluto """
