@@ -23,9 +23,25 @@ def dot_matrix(A: array, B: array):
                 C[i][j] += A[i][k] * B[k][j]
     return C
 
-A = random.randint(2, 5, size=(3, 3))
+def is_triang_up(A):
+    is_triang = False
+    ex = False
+    [m, n] = shape(A)
+    for i in range(0, m):
+        if ex:
+            break
+        for j in range(0, i):
+            if i > j:
+                if A[i][j] == 0:
+                    is_triang = True
+                else:
+                    is_triang = False
+                    ex = True
+                    break
+    return is_triang
+                    
+A = array([[1, 2, 3], [0, 5, 6], [0, 0, 9]])
 print(A)
 B = random.randint(2, 5, size=(3, 3))
 print(B)
-print(sum_matrix(A, B))
-print(dot_matrix(A, B))
+print(is_triang_up(A))
