@@ -27,6 +27,8 @@ def is_triang_up(A):
     is_triang = False
     ex = False
     [m, n] = shape(A)
+    if m != n:
+        raise ValueError("La matrice non e' quadrata")
     for i in range(0, m):
         if ex:
             break
@@ -39,7 +41,7 @@ def is_triang_up(A):
                     ex = True
                     break
     return is_triang
-                    
+
 A = array([[1, 2, 3], [0, 5, 6], [0, 0, 9]])
 print(A)
 B = random.randint(2, 5, size=(3, 3))
