@@ -22,7 +22,6 @@ def dot_matrix(A: array, B: array):
             for k in range(0, n):
                 C[i][j] += A[i][k] * B[k][j]
     return C
-
 def is_triang_up(A):
     is_triang = False
     ex = False
@@ -56,10 +55,29 @@ def solve_triup(A, b):
         x[i] = (b[i] - part_sum)/A[i][i]
     return x
 
+def fattLU(A):
+    [m, n] = shape(A)
+    if m != n:
+        raise ValueError("Matrice non quadrata")
+    A = copy(A)
+    L = identity(n)
+    for k in range(0, n - 1):
+        for i in range(k + 1, n):
+            if abs(A[k][k]) < 1e-15:
+                raise ZeroDivisionError("Divisione per zero")
+            mik = - A[i][k]/A[k][k]
+            for j in range(k + 1, n):
+                A[i][j] = A[i][j] + (mik * A[k][j])
+            L[i][k] = -mik
+    U = triu(A)
+    return L, U
+
 A = array([[1, 2, 3, 4], [0, 3, 1, 3], [0, 0, 9, 4], [0, 0, 0, 4]])
-print(A)
-B = random.randint(2, 5, size=(3, 3))
-print(B)
+B = array([[2, -1, -3], [-4, 4, -4], [-1, -4, -5]])
 print(is_triang_up(A))
 b = array([4, 5, 6, 7])
 print(solve_triup(A, b))
+print(B)
+[L, U] = fattLU(B)
+print(L)
+print(U)
