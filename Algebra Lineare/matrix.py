@@ -74,6 +74,8 @@ def fattLU(A):
 
 def gauss_elim(A, b):
     [m, n] = shape(A)
+    if m != n:
+        raise ValueError("Matrice non quadrata")
     A = copy(A)
     b = copy(b)
     L = identity(n)
@@ -91,6 +93,8 @@ def gauss_elim(A, b):
 
 def gauss_elim_pivot(A, b):
     [m, n] = shape(A)
+    if m != n:
+        raise ValueError("Matrice non quadrata")
     A = copy(A)
     b = copy(b)
     L = identity(n)
