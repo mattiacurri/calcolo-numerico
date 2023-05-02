@@ -51,7 +51,7 @@ def solve_triup(A, b):
             raise ValueError("Matrice singolare")
         part_sum = 0
         for j in range(i + 1, n):
-            part_sum += A[i][j] * x[j]
+            part_sum += (A[i][j] * x[j])
         x[i] = (b[i] - part_sum)/A[i][i]
     return x
 
@@ -72,7 +72,25 @@ def fattLU(A):
     U = triu(A)
     return L, U
 
-A = array([[1, 2, 3, 4], [0, 3, 1, 3], [0, 0, 9, 4], [0, 0, 0, 4]])
+def gauss_elim(A, b):
+    [m, n] = shape(A)
+    A = copy(A)
+    b = copy(b)
+    L = identity(n)
+    for k in range(0, n - 1):
+        for i in range(k + 1, n):
+            if abs(A[k][k]) < 1e-15:
+                raise ZeroDivisionError("Divisione per zero")
+            mik = - A[i][k]/A[k][k]
+            b[i] = b[i] + (mik * b[k])
+            for j in range(k + 1, n):
+                A[i][j] = A[i][j] + (mik * A[k][j])
+            L[i][k] = -mik
+    U = triu(A)
+    return solve_triup(U,b)
+
+# gauss, gauss con pivot, inversa con LU, riduzione a scalini, calcolo rank
+"""A = array([[1, 2, 3, 4], [0, 3, 1, 3], [0, 0, 9, 4], [0, 0, 0, 4]])
 B = array([[2, -1, -3], [-4, 4, -4], [-1, -4, -5]])
 print(is_triang_up(A))
 b = array([4, 5, 6, 7])
@@ -80,4 +98,7 @@ print(solve_triup(A, b))
 print(B)
 [L, U] = fattLU(B)
 print(L)
-print(U)
+print(U)"""
+A = array([[1, -2, 0, 1],[0, -1, 2, 1], [0, 1, 0, 0], [0, 0, 0, -1]])
+b = array([-1, -1, 3, 1])
+print(gauss_elim(A, b))
