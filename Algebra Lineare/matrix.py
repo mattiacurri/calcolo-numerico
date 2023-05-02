@@ -22,6 +22,7 @@ def dot_matrix(A: array, B: array):
             for k in range(0, n):
                 C[i][j] += A[i][k] * B[k][j]
     return C
+
 def is_triang_up(A):
     is_triang = False
     ex = False
@@ -48,7 +49,7 @@ def solve_triup(A, b):
     x = zeros(shape=(n, 1))
     for i in range(n - 1, -1, -1):
         if abs(A[i][i]) < 1e-15:
-            raise ValueError("Matrice singolare")
+            raise ValueError(f"A[{i}][{i}]: {A[i][i]} Matrice singolare")
         part_sum = 0
         for j in range(i + 1, n):
             part_sum += (A[i][j] * x[j])
@@ -83,7 +84,7 @@ def gauss_elim(A, b):
         for i in range(k + 1, n):
             if abs(A[k][k]) < 1e-15:
                 raise ZeroDivisionError("Divisione per zero")
-            mik = - A[i][k]/A[k][k]
+            mik = - A[i][k] / A[k][k]
             b[i] = b[i] + (mik * b[k])
             for j in range(k + 1, n):
                 A[i][j] = A[i][j] + (mik * A[k][j])
@@ -110,14 +111,35 @@ def gauss_elim_pivot(A, b):
             if s != k:
                 A[[k][s]] = A[[s][k]]
                 b[k], b[s] = b[s], b[k]
-            mik = - A[i][k]/A[k][k]
+            mik = - A[i][k] / A[k][k]
             b[i] = b[i] + (mik * b[k])
             for j in range(k + 1, n):
                 A[i][j] = A[i][j] + (mik * A[k][j])
             L[i][k] = -mik
     U = triu(A)
-    return solve_triup(U,b)
+    return solve_triup(U, b)
 
+def inv_LU(A):
+    [m, n] = shape(A)
+    if m != n:
+        raise ValueError("Matrice non quadrata")
+    A = copy(A)
+    I = identity(n)
+    mik = 0
+    for k in range(0, n - 1):
+        for i in range(k + 1, n):
+            mik = - (A[i][k] / A[k][k])
+            for j in range(k + 1, n):
+                A[i][j] = A[i][j] + mik * A[k][j]
+            for j in range(n):
+                I[i][j] = I[i][j] + mik * I[k][j]
+    U = triu(A)
+    inv = zeros((n, n))
+    for i in range(0, n):
+        inv[:][i] = linalg.solve(U,I[:][i]) # TODO: sostituire con funzione 'proprietaria'
+    return inv
+
+    
 # gauss, gauss con pivot, inversa con LU, riduzione a scalini, calcolo rank
 """A = array([[1, 2, 3, 4], [0, 3, 1, 3], [0, 0, 9, 4], [0, 0, 0, 4]])
 B = array([[2, -1, -3], [-4, 4, -4], [-1, -4, -5]])
@@ -128,7 +150,6 @@ print(B)
 [L, U] = fattLU(B)
 print(L)
 print(U)"""
-A = array([[1, -2, 0, 1],[0, -1, 2, 1], [0, 1, 0, 0], [0, 0, 0, -1]])
 b = array([-1, -1, 3, 1])
-print(gauss_elim(A, b))
-print(gauss_elim_pivot(A, b))
+A = array([[1, -2, 0, 1], [-1, 1, 2, 0], [2, -3, 0, 2], [-1, 2, 0, -2]])
+print(inv_LU(A))
