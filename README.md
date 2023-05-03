@@ -6,10 +6,10 @@ Repository contenente il codice Python scritto per il corso di __Calcolo Numeric
   - Metodo delle successive bisezioni
   - Metodo di Newton (o delle tangenti)
 - __Algebra Lineare__
- - Metodo di Laplace per calcolare il determinante di una matrice
- - Utility per matrici
- - Fattorizzazione LU
- - Algoritmo di Eliminazione di Gauss con e senza tecnica del massimo pivot parziale
+  - Metodo di Laplace per calcolare il determinante di una matrice
+  - Utility per matrici
+  - Fattorizzazione LU
+  - Algoritmo di Eliminazione di Gauss con e senza tecnica del massimo pivot parziale
 
 
 # Ambiente di lavoro
