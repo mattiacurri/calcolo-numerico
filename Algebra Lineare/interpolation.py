@@ -28,4 +28,37 @@ y = [2, 1, 3, 0]
 xx = linspace(-1, 2, 100)
 print(lagrange(x, y, xx))
 
+#plot.plot(xx, lagrange(x, y, xx), 'b', x, y, 'ro') 
+#plot.show()
 
+def interpolation(f, apx, n):
+    """
+    Interpolazione polinomiale di una funzione
+    Parametri di input
+    f: funzione (eventualmente inline)
+    apx: intervallo di approssimazione
+    n: numero di nodi equidistanti che ricoprono l'intervallo apx
+    """
+    a = apx[0]
+    b = apx[1]
+    x = linspace(a, b, n)
+    y = f(x) # vettore delle ordinate
+    xx = linspace(a, b, 100)
+    yy = lagrange(x, y, xx)
+    fxx = f(xx)
+    # plot the interpolating polynomial
+    plot.plot(x, y, 'ro', xx, fxx, xx, yy)
+    plot.legend(['nodi', 'f(x)', 'p(x)'])
+    plot.grid(True)
+    plot.title('Interpolazione polinomiale di Lagrange')
+    plot.xlabel('x')
+    plot.ylabel('y')
+    plot.show()
+
+def f(x):
+    return e**(-x)*sin(x)
+
+apx = [0, pi]
+n = 5
+interpolation(f, apx, n)
+ 
